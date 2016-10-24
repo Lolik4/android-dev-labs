@@ -25,13 +25,13 @@ public class FriendsFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// use different layout definition, depending on whether device is pre-
-		// or post-honeycomb
+		// используйте различные определения макета, в зависимости  от вида устройства и является ли устройство pre-
+		// или post-honeycomb
 
 		int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.layout.simple_list_item_activated_1
 				: android.R.layout.simple_list_item_1;
 
-		// Set the list adapter for this ListFragment
+		// Устанавливаем адаптер списка для ListFragment
 		setListAdapter(new ArrayAdapter<String>(getActivity(), layout, FRIENDS));
 	}
 
@@ -40,10 +40,10 @@ public class FriendsFragment extends ListFragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
-		// Make sure that the hosting Activity has implemented
-		// the SelectionListener callback interface. We need this
-		// because when an item in this ListFragment is selected, 
-		// the hosting Activity's onItemSelected() method will be called.
+		// Убеждаемся, что хостовое Activity реализовало
+		// SelectionListener интерфейс. Нам это необходимо, т.к.
+		// когда выбирается элемента списка в ListFragment ,
+		// у хвостового Activity вызывается метод onItemSelected().
 		
 		try {
 
@@ -55,8 +55,8 @@ public class FriendsFragment extends ListFragment {
 		}
 	}
 
-	// Note: ListFragments come with a default onCreateView() method.
-	// For other Fragments you'll normally implement this method.
+	// Замечание: ListFragments содержит onCreateView() метод по умолчанию.
+	// Для других фрагментов, экземпляров класса Fragment вы обычно сами его реализовываете.
 	// 	@Override
 	//  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	//		Bundle savedInstanceState)
@@ -68,8 +68,8 @@ public class FriendsFragment extends ListFragment {
 
 		Log.i(TAG, "Entered onActivityCreated()");
 
-		// When using two-pane layout, configure the ListView to highlight the
-		// selected list item
+		// При использовании двухпанельного макета, конфигурируем ListView для подсветки
+		// выбранного элемента списка
 		
 		if (isInTwoPaneMode()) {
 
@@ -82,13 +82,13 @@ public class FriendsFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View view, int position, long id) {
 
-		// Notify the hosting Activity that a selection has been made.
+		// Уведомить хостовой Activity что было произведен выбор.
 
 		mCallback.onItemSelected(position);
 
 	}
 
-	// If there is a FeedFragment, then the layout is two-pane 
+	// Если присутствует FeedFragment, значит макет двухпанельный
 	private boolean isInTwoPaneMode() {
 
 		return getFragmentManager().findFragmentById(R.id.feed_frag) != null;

@@ -18,21 +18,21 @@ public class MainActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 
-		// If the layout is single-pane, create the FriendsFragment 
-		// and add it to the Activity
+		// Если макет однопанельный, создаем FriendsFragment
+		// и добавляем его к Activity
 
 		if (!isInTwoPaneMode()) {
 			
 			mFriendsFragment = new FriendsFragment();
 
-			//TODO 1 - add the FriendsFragment to the fragment_container
+			//TODO 1 - добавьте FriendsFragment в контейнер fragment_container
 			
 			
 			
 
 		} else {
 
-			// Otherwise, save a reference to the FeedFragment for later use
+			// В противном случае, сохраняем ссылку в FeedFragment для дальнейшего использования
 
 			mFeedFragment = (FeedFragment) getFragmentManager()
 					.findFragmentById(R.id.feed_frag);
@@ -40,8 +40,8 @@ public class MainActivity extends Activity implements
 
 	}
 
-	// If there is no fragment_container ID, then the application is in
-	// two-pane mode
+	// Если отсутствует fragment_container ID, тогда приложение находится в
+	// двухпанельном режиме
 
 	private boolean isInTwoPaneMode() {
 
@@ -49,32 +49,32 @@ public class MainActivity extends Activity implements
 	
 	}
 
-	// Display selected Twitter feed
+	// Отображаем выбранную ленту Twitter
 
 	public void onItemSelected(int position) {
 
 		Log.i(TAG, "Entered onItemSelected(" + position + ")");
 
-		// If there is no FeedFragment instance, then create one
+		// Если отсутствует экземпляр FeedFragment , тогда создаем его
 
 		if (mFeedFragment == null)
 			mFeedFragment = new FeedFragment();
 
-		// If in single-pane mode, replace single visible Fragment
+		// Если в одно-панельном режиме, заменяем заменяем отдельный Fragment
 
 		if (!isInTwoPaneMode()) {
 
-			//TODO 2 - replace the fragment_container with the FeedFragment
+			//TODO 2 - замените fragment_container на FeedFragment
 			
 
 			
 
-			// execute transaction now
+			// запускаем транзацию
 			getFragmentManager().executePendingTransactions();
 
 		}
 
-		// Update Twitter feed display on FriendFragment
+		// Обновляем отображение ленты Twitter в FriendFragment
 		mFeedFragment.updateFeedDisplay(position);
 
 	}

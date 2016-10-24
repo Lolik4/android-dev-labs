@@ -27,7 +27,7 @@ public class FeedFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		// Read in all Twitter feeds 
+		// Прочитать все ленты Twitter
 		if (null == feedFragmentData) { 
 			
 			feedFragmentData = new FeedFragmentData(getActivity());
@@ -36,7 +36,7 @@ public class FeedFragment extends Fragment {
 	}
 
 
-	// Display Twitter feed for selected feed
+	// Отобразить ленту Twitter для выбранного пользователя
 
 	void updateFeedDisplay(int position) {
 

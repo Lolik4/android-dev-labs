@@ -13,7 +13,7 @@ import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
 
-// Utility class that provides stored Twitter feed data 
+// Вспомогательный класс, который предоставляет сохраненные данные ленты Twitter
 
 public class FeedFragmentData {
 	private static final String TAG = "FeedFragmentData";
@@ -29,7 +29,7 @@ public class FeedFragmentData {
 		loadFeeds();
 	}
 
-	// Load all stored Twitter feeds into the mFeeds SparseArray. 
+	// Загрузить все сохраненные ленты Twitter в SparseArray с именем mFeeds .
 	
 	private void loadFeeds() {
 
@@ -43,7 +43,7 @@ public class FeedFragmentData {
 			StringBuffer buffer = new StringBuffer("");
 			
 			
-			// Read raw data from resource file
+			// Загрузить сырые данные из файла ресурсов
 			
 			try {
 
@@ -72,14 +72,14 @@ public class FeedFragmentData {
 	}
 	
 	
-// Convert JSON formatted data to a String
+// Сконвертировать данные в формате JSON в строку, String
 	
 	private String procFeed(JSONArray feed) {
 
 		String name = "";
 		String tweet = "";
 
-		// string buffer for twitter feeds
+		// строковый буфер для ленты Twitter
 		StringBuffer textFeed = new StringBuffer("");
 
 		for (int j = 0; j < feed.length(); j++) {
@@ -101,7 +101,7 @@ public class FeedFragmentData {
 		return textFeed.toString();
 	}
 	
-// Return the Twitter feed data for the specified position as a single String
+// Возвращаем ленту Twitter для определенной позиции как одну строоку
 	
  String getFeed (int position) {
 		
