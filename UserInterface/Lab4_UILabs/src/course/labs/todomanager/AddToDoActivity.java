@@ -25,7 +25,7 @@ import course.labs.todomanager.ToDoItem.Status;
 
 public class AddToDoActivity extends Activity {
 
-	// 7 days in milliseconds - 7 * 24 * 60 * 60 * 1000
+	// 7 дней в милисекундах 7 * 24 * 60 * 60 * 1000
 	private static final int SEVEN_DAYS = 604800000;
 
 	private static final String TAG = "Lab-UserInterface";
@@ -55,12 +55,12 @@ public class AddToDoActivity extends Activity {
 		dateView = (TextView) findViewById(R.id.date);
 		timeView = (TextView) findViewById(R.id.time);
 
-		// Set the default date and time
+		// Установка даты и времени по умолчанию
 
 		setDefaultDateTime();
 
-		// OnClickListener for the Date button, calls showDatePickerDialog() to
-		// show the Date dialog
+		// OnClickListener для кнопки Date, вызывает showDatePickerDialog() для
+		// показа диалога выбора даты
 
 		final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
 		datePickerButton.setOnClickListener(new OnClickListener() {
@@ -71,8 +71,8 @@ public class AddToDoActivity extends Activity {
 			}
 		});
 
-		// OnClickListener for the Time button, calls showTimePickerDialog() to
-		// show the Time Dialog
+		// OnClickListener для кнопки Time, вызывает showTimePickerDialog() для
+		// показа диалога выбора Времени
 
 		final Button timePickerButton = (Button) findViewById(R.id.time_picker_button);
 		timePickerButton.setOnClickListener(new OnClickListener() {
@@ -83,7 +83,7 @@ public class AddToDoActivity extends Activity {
 			}
 		});
 
-		// OnClickListener for the Cancel Button,
+		// OnClickListener для кнопки Cancel,
 
 		final Button cancelButton = (Button) findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
@@ -92,33 +92,33 @@ public class AddToDoActivity extends Activity {
 
 
 
-				// TODO - Indicate result and finish
+				// TODO - Обозначьте результат и завершите, финишируйте
 
                 
                 
 			}
 		});
 
-		// TODO - Set up OnClickListener for the Reset Button
+		// TODO - Установите OnClickListener для кнопки Reset
 		final Button resetButton = (Button) findViewById(R.id.resetButton);
 		resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
 
-				// TODO - Reset data to default values
+				// TODO - очистить данные до значений по умолчанию
 
 
                 
                 
                 
-				// reset date and time
+				// очистить дату и время
 				setDefaultDateTime();
 
 			}
 		});
 
-		// Set up OnClickListener for the Submit Button
+		// Установить OnClickListener для кнопки Submit
 
 		final Button submitButton = (Button) findViewById(R.id.submitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
@@ -126,30 +126,30 @@ public class AddToDoActivity extends Activity {
 			public void onClick(View v) {
 
 
-				// gather ToDoItem data
+				// получить данные ToDoItem
 
 
-				// TODO - Get the current Priority
+				// TODO - Получить текущий приоритет
 				Priority priority = null;
 
-				// TODO - Get the current Status
+				// TODO - Получить текущий статус
 				Status status = null;
 
-				// TODO - Get the current ToDoItem Title
+				// TODO - Получить текущий заголовок
 
 
 				String titleString = null;
 
 
-				// Construct the Date string
+				// Сконструировать строку даты
 				String fullDate = dateString + " " + timeString;
 
-				// Package ToDoItem data into an Intent
+				// Упаковка данных ToDoItem в Intent
 				Intent data = new Intent();
 				ToDoItem.packageIntent(data, titleString, priority, status,
 						fullDate);
 
-				// TODO - return data Intent and finish
+				// TODO - вернуть данные через Intent и завершить
 
 
 
@@ -241,7 +241,7 @@ public class AddToDoActivity extends Activity {
 	}
 	
 	
-	// DialogFragment used to pick a ToDoItem deadline date
+	// DialogFragment используется для выбора даты дедлайна
 
 	public static class DatePickerFragment extends DialogFragment implements
 			DatePickerDialog.OnDateSetListener {
@@ -249,14 +249,14 @@ public class AddToDoActivity extends Activity {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-			// Use the current date as the default date in the picker
+			// Исполльзуйте текущую дату в качестве значения по умолчанию
 
 			final Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR);
 			int month = c.get(Calendar.MONTH);
 			int day = c.get(Calendar.DAY_OF_MONTH);
 
-			// Create a new instance of DatePickerDialog and return it
+			// Создать новый экземпляр DatePickerDialog и вернуть его
 			return new DatePickerDialog(getActivity(), this, year, month, day);
 		}
 
@@ -270,7 +270,7 @@ public class AddToDoActivity extends Activity {
 
 	}
 
-	// DialogFragment used to pick a ToDoItem deadline time
+	// DialogFragment используется для выбора Времени дедлайна
 
 	public static class TimePickerFragment extends DialogFragment implements
 			TimePickerDialog.OnTimeSetListener {
@@ -278,12 +278,12 @@ public class AddToDoActivity extends Activity {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-			// Use the current time as the default values for the picker
+			// Используетеся текущее время в качестве значения по умолчанию
 			final Calendar c = Calendar.getInstance();
 			int hour = c.get(Calendar.HOUR_OF_DAY);
 			int minute = c.get(Calendar.MINUTE);
 
-			// Create a new instance of TimePickerDialog and return
+			// Создаем новый экземпляр TimePickerDialog и возврат
 			return new TimePickerDialog(getActivity(), this, hour, minute, true);
 		}
 

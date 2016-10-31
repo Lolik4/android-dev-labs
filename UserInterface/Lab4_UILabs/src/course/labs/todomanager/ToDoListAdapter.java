@@ -27,8 +27,8 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	}
 
-	// Add a ToDoItem to the adapter
-	// Notify observers that the data set has changed
+	// Добавляем  ToDoItem в адаптер
+	// Уведомляем обсерверов, что данные изменились
 
 	public void add(ToDoItem item) {
 
@@ -37,7 +37,7 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	}
 
-	// Clears the list adapter of all items.
+	// Очищаем список адаптеров от всех элементов.
 
 	public void clear() {
 
@@ -46,7 +46,7 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	}
 
-	// Returns the number of ToDoItems
+	// Возвращает число элементов ToDoItems
 
 	@Override
 	public int getCount() {
@@ -55,7 +55,7 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	}
 
-	// Retrieve the number of ToDoItems
+	// Возвращает элемент ToDoItem в выбранной позиции
 
 	@Override
 	public Object getItem(int pos) {
@@ -64,8 +64,8 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	}
 
-	// Get the ID for the ToDoItem
-	// In this case it's just the position
+	// Получает ID для ToDoItem
+	// В данном случае это всего лишь позиция
 
 	@Override
 	public long getItemId(int pos) {
@@ -74,38 +74,37 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	}
 
-	// Create a View for the ToDoItem at specified position
-	// Remember to check whether convertView holds an already allocated View
-	// before created a new View.
-	// Consider using the ViewHolder pattern to make scrolling more efficient
-	// See: http://developer.android.com/training/improving-layouts/smooth-scrolling.html
+	// Создайте View для ToDoItem в определенной позиции
+	// Не забудьте проверить, содержит ли выделенное convertView уже созданное  View
+	// перед созданием нового View
+	// Рассмотрите использование паттерна ViewHolder чтобы сделать скроллинг более эффективным.
+	// См: http://developer.android.com/training/improving-layouts/smooth-scrolling.html
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		// TODO - Get the current ToDoItem
+		// TODO - Получите текущий ToDoItem
 		final ToDoItem toDoItem = null;
 
 
-		// TODO - Inflate the View for this ToDoItem
-		// from todo_item.xml
+		// TODO - Заполните View для данного ToDoItem из todo_item.xml
 		RelativeLayout itemLayout = null;
 
-		// Fill in specific ToDoItem data
-		// Remember that the data that goes in this View
-		// corresponds to the user interface elements defined
-		// in the layout file
+		// Заполните специфичные данные ToDoItem
+		// Помните, что данные, которые появляются в этом View
+		// соответствуют пользовательскому интерфейсу, описанному
+		// в файле макета
 
-		// TODO - Display Title in TextView
+		// TODO - Отобразите Title В TextView
 		final TextView titleView = null;
 
 
-		// TODO - Set up Status CheckBox
+		// TODO - Установите CheckBox статуса
 		final CheckBox statusView = null;
 
 
-		// TODO - Must also set up an OnCheckedChangeListener,
-		// which is called when the user toggles the status checkbox
+		// TODO - Обязательно нужно установить OnCheckedChangeListener,
+		// который вызывается когда пользователь переключает чекбокс статуса
 
 		statusView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					@Override
@@ -120,17 +119,16 @@ public class ToDoListAdapter extends BaseAdapter {
 					}
 				});
 
-		// TODO - Display Priority in a TextView
+		// TODO - Отобразить Приоритет в TextView
 		final TextView priorityView = null;
 
 
 
-		// TODO - Display Time and Date.
-		// Hint - use ToDoItem.FORMAT.format(toDoItem.getDate()) to get date and
-		// time String
+		// TODO - Отобразить Время и Дату.
+		// Подсказка - используйте ToDoItem.FORMAT.format(toDoItem.getDate()) для получения даты и строки
 		final TextView dateView = null;
 
-		// Return the View you just created
+		// Возвращает View которое только что создали
 		return itemLayout;
 
 	}

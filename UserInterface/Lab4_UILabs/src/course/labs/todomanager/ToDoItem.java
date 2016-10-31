@@ -40,7 +40,7 @@ public class ToDoItem {
 		this.mDate = date;
 	}
 
-	// Create a new ToDoItem from data packaged in an Intent
+	// Создаем новый ToDoItem из данных, упакованных в Intent
 
 	ToDoItem(Intent intent) {
 
@@ -87,8 +87,7 @@ public class ToDoItem {
 		mDate = date;
 	}
 
-	// Take a set of String data values and 
-	// package them for transport in an Intent
+	// Поулчаем набор строк и  упаковываем их для транспортировки в Intent
 
 	public static void packageIntent(Intent intent, String title,
 			Priority priority, Status status, String date) {

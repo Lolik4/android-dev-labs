@@ -30,7 +30,7 @@ public class ToDoManagerActivity extends ListActivity {
 	private static final String FILE_NAME = "TodoManagerActivityData.txt";
 	private static final String TAG = "Lab-UserInterface";
 
-	// IDs for menu items
+	// ID для элментов меню
 	private static final int MENU_DELETE = Menu.FIRST;
 	private static final int MENU_DUMP = Menu.FIRST + 1;
 
@@ -40,37 +40,37 @@ public class ToDoManagerActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Create a new TodoListAdapter for this ListActivity's ListView
+		// Создает новый TodoListAdapter для данного ListView
 		mAdapter = new ToDoListAdapter(getApplicationContext());
 
-		// Put divider between ToDoItems and FooterView
+		// Положить разделитель между ToDoItems и FooterView
 		getListView().setFooterDividersEnabled(true);
 
-		// TODO - Inflate footerView for footer_view.xml file
+		// TODO - Наполнить футер из файла footer_view.xml
 		TextView footerView = null;
 
 
-		// NOTE: You can remove this block once you've implemented the assignment
+		// ЗАМЕЧАНИЕ: Вы можете удалить этот блок когда вы реализуете данное задание.
 		if (null == footerView) {
 			return;
 		}
-		// TODO - Add footerView to ListView
+		// TODO - Добавить footerView в ListView
 
 
 		
         
         
-		// TODO - Attach Listener to FooterView
+		// TODO - Прикрепить Listener к FooterView
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
 
-				//TODO - Implement OnClick().
+				//TODO - Реализовать OnClick().
 			}
 		});
 
-		// TODO - Attach the adapter to this ListActivity's ListView
+		// TODO - Прикрепить адаптер к ListView
 		
 	}
 
@@ -79,10 +79,10 @@ public class ToDoManagerActivity extends ListActivity {
 
 		Log.i(TAG,"Entered onActivityResult()");
 
-		// TODO - Check result code and request code
-		// if user submitted a new ToDoItem
-		// Create a new ToDoItem from the data Intent
-		// and then add it to the adapter
+		// TODO - Проверить код результата и код запроса
+		// есди пользователь отправил новый элемент
+		// создайте новый ToDoItem из данных Intent-а
+		// и затем добавьте его в адаптер
 
 
             
@@ -92,13 +92,13 @@ public class ToDoManagerActivity extends ListActivity {
 
 	}
 
-	// Do not modify below here
+	// Не изменяйте все что ниже
 
 	@Override
 	public void onResume() {
 		super.onResume();
 
-		// Load saved ToDoItems, if necessary
+		// Загрузить сохраненные ToDoItems, при необходимости
 
 		if (mAdapter.getCount() == 0)
 			loadItems();
@@ -108,7 +108,7 @@ public class ToDoManagerActivity extends ListActivity {
 	protected void onPause() {
 		super.onPause();
 
-		// Save ToDoItems
+		// Сохранить ToDoItems
 
 		saveItems();
 
@@ -146,7 +146,7 @@ public class ToDoManagerActivity extends ListActivity {
 
 	}
 
-	// Load stored ToDoItems
+	// Загрузка сохраненных ToDoItems
 	private void loadItems() {
 		BufferedReader reader = null;
 		try {
@@ -183,7 +183,7 @@ public class ToDoManagerActivity extends ListActivity {
 		}
 	}
 
-	// Save ToDoItems to file
+	// Сохранение ToDoItems в файл
 	private void saveItems() {
 		PrintWriter writer = null;
 		try {
