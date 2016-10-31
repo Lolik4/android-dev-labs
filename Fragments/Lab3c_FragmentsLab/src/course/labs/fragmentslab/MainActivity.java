@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements
 
 		}
 
-		// Обновляем отображение ленты Twitter в FriendFragment
+		// Обновляем отображение ленты Twitter в FeedFragment
 		mFeedFragment.updateFeedDisplay(position);
 
 	}
