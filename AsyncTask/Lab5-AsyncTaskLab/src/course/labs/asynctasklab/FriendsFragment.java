@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 public class FriendsFragment extends ListFragment {
 
-	// HostingActivity
+	// Родительское Activity
 	private SelectionListener mCallback;
 
 	@Override
@@ -24,13 +24,13 @@ public class FriendsFragment extends ListFragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
-		// Make sure that the hosting Activity has implemented
-		// the callback interface. 
+		// Убеждаемся, что родительское Activity реализует
+		// callback интерфейс.
 		try {
 			mCallback = (SelectionListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
-					+ " must implement SelectionListener");
+					+ " нужно реализовать SelectionListener");
 		}
 	}
 
@@ -38,12 +38,12 @@ public class FriendsFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		// Enable user interaction only if data is available
+		// Включить пользовательское взаимодействие , только если данные загружены
 		setAllowUserClicks(mCallback.canAllowUserClicks());
 		
 	}
 
-	// Enable/disable user interaction 
+	// Включить/отключить пользовательское взаимодействие
 	void setAllowUserClicks(boolean allowUserInteraction) {
 		getListView().setEnabled(allowUserInteraction);
 		if (allowUserInteraction) {

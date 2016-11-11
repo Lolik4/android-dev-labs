@@ -27,51 +27,50 @@ public class DownloaderTaskFragment extends Fragment {
 		// Preserve across reconfigurations
 		setRetainInstance(true);
 		
-		// TODO: Create new DownloaderTask that "downloads" data
+		// TODO: Создаем новый DownloaderTask который "скачивает" данные
 
         
 		
-		// TODO: Retrieve arguments from DownloaderTaskFragment
-		// Prepare them for use with DownloaderTask. 
+		// TODO: Получаем аргументы из DownloaderTaskFragment
+		// Подготавливаем их для использования в DownloaderTask.
 
         
         
         
-		// TODO: Start the DownloaderTask 
+		// TODO: Стартуем DownloaderTask
 		
         
 
 	}
 
-	// Assign current hosting Activity to mCallback
-	// Store application context for use by downloadTweets()
+	// Связываем текущий родительский Activity с mCallback
+	// Сохраняем контекст приложения для использования в downloadTweets()
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
 		mContext = activity.getApplicationContext(); 
 
-		// Make sure that the hosting activity has implemented
-		// the correct callback interface.
+		// Убеждаемся, что родительское активити реализует требуемый интерфейс
 		try {
 			mCallback = (DownloadFinishedListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
-					+ " must implement DownloadFinishedListener");
+					+ " должен реализовывать DownloadFinishedListener");
 		}
 	}
 
-	// Null out mCallback
+	// Обнуляем mCallback
 	@Override
 	public void onDetach() {
 		super.onDetach();
 		mCallback = null;
 	}
 
-	// TODO: Implement an AsyncTask subclass called DownLoaderTask.
-	// This class must use the downloadTweets method (currently commented
-	// out). Ultimately, it must also pass newly available data back to 
-	// the hosting Activity using the DownloadFinishedListener interface.
+	// TODO: Реализуем подкласс AsyncTask с именем DownLoaderTask.
+	// Этот класс должен использовать метод downloadTweets (пока закомментированный).
+	// Он так же должен передать вновь созданные данные в
+	// родительское Activity используя интерфейс DownloadFinishedListener.
 
 //	public class DownloaderTask extends ... {
 	
@@ -83,8 +82,8 @@ public class DownloaderTaskFragment extends Fragment {
     
     
     
-        // TODO: Uncomment this helper method
-		// Simulates downloading Twitter data from the network
+        // TODO: Раскомментировать данный вспомогательный метод
+		// Симулирет скачивание данных Twitter по сети
 
         /*
          private String[] downloadTweets(Integer resourceIDS[]) {
@@ -95,7 +94,7 @@ public class DownloaderTaskFragment extends Fragment {
 					InputStream inputStream;
 					BufferedReader in;
 					try {
-						// Pretend downloading takes a long time
+						// Притворяемся, что скачивание занимает долгое время
 						Thread.sleep(simulatedDelay);
 					} catch (InterruptedException e) {
 						e.printStackTrace();

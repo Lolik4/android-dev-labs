@@ -31,7 +31,7 @@ public class MainActivity extends Activity implements SelectionListener,
 	@SuppressWarnings("unused")
 	private static final String TAG = "Lab-Threads";
 
-	// Raw feed file IDs used to reference stored tweet data
+	// Сырые идентификаторы файлов, используемые для ссылки на хранимые данные о твитах
 	public static final ArrayList<Integer> sRawTextFeedIds = new ArrayList<Integer>(
 			Arrays.asList(R.raw.tswift, R.raw.rblack, R.raw.lgaga));
 
@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements SelectionListener,
 		
 		mFragmentManager = getFragmentManager();
 
-		// Reset instance state on reconfiguration 
+		// Обнулить экземпляр состояния при реконфигурации
 		if (null != savedInstanceState) {
 			restoreState(savedInstanceState);
 		} else {
@@ -57,89 +57,89 @@ public class MainActivity extends Activity implements SelectionListener,
 		}
 	}
 
-	// One time setup of UI and retained (headless) Fragment
+	// Единовремменнная установка  UI и фрагмента
 	private void setupFragments() {
 		installFriendsFragment();
 		installDownloaderTaskFragment();
 	}
 
-	// Add Friends Fragment to Activity
+	// Добавляем Фрагмент для отображения Друзей в Activity
 	private void installFriendsFragment() {
 
-		// Make new Fragment 
+		// Создаем новый Fragment
 		mFriendsFragment = new FriendsFragment();
 		
-		// Give Fragment to the FragmentManager
+		// Передаем Fragment в FragmentManager
 		FragmentTransaction transaction = mFragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, mFriendsFragment,
 				TAG_FRIENDS_FRAGMENT);
 		transaction.commit();
 	}
 
-	// Add DownloaderTaskFragment to Activity
+	// Добавляем DownloaderTaskFragment в Activity
 	private void installDownloaderTaskFragment() {
 
-		// Make new Fragment 
+		// Добавляем новый Fragment
 		mDownloaderFragment = new DownloaderTaskFragment();
 		
-		// Set DownloaderTaskFragment arguments
+		// Устанавливаем аргументы DownloaderTaskFragment
 		Bundle args = new Bundle();
 		args.putIntegerArrayList(TAG_FRIEND_RES_IDS, sRawTextFeedIds);
 		mDownloaderFragment.setArguments(args);
 		
-		// Give Fragment to the FragmentManager
+		// Передаем Fragment в FragmentManager
 		mFragmentManager.beginTransaction()
 				.add(mDownloaderFragment, TAG_DOWNLOADER_FRAGMENT).commit();
 	}
 
 	/*
-	 * DownloadFinishedListener method
+	 * DownloadFinishedListener метод
 	 */
 	
-	// Called back by DownloaderTask after data has been loaded
+	// Уведомляется DownloaderTask-ом после того как данные были загружены
 	public void notifyDataRefreshed(String[] feeds) {
 
-		// Process downloaded data
+		// Обрабатываем скаченные данные
 		parseJSON(feeds);
 	
-		// Enable user interaction
+		// Включаем пользовательское взаимодействие
 		mIsInteractionEnabled = true;
 		allowUserClicks();
 		
 	};
 
-	// Enable user interaction with FriendFragment
+	// Включаем пользовательское взаимодействие с FriendFragment
 	private void allowUserClicks() {
 		mFriendsFragment.setAllowUserClicks(true);
 	}
 	
 	/*
-	 * SelectionListener methods
+	 * SelectionListener методы
 	 */
 
-	// Report whether users interaction is enabled
+	// Уведомляем включено ли пользовательское взаимодействие
 	public boolean canAllowUserClicks() {
 		return mIsInteractionEnabled;
 	}
 
-	// Installs the FeedFragment when a Friend name is 
-	// selected in the FriendsFragment 
+	// Устанавливаем FeedFragment когда имя Друга
+	// выбирается в FriendsFragment
 	@Override
 	public void onItemSelected(int position) {
 		installFeedFragment(mFormattedFeeds[position]);
 	}
 
-	// Add FeedFragment to Activity
+	// Добавляем FeedFragment в Activity
 	private void installFeedFragment(String tweetData) {
-		// Make new Fragment
+		// Создаем новый Fragment
 		mFeedFragment = new FeedFragment();
 
-		// Set Fragment arguments 
+		// Устанавливаем аргументы Фрагменты
 		Bundle args = new Bundle();
 		args.putString(TAG_TWEET_DATA, tweetData);
 		mFeedFragment.setArguments(args);
 
-		// Give Fragment to the FragmentManager
+		// Передаем Фрагменты в FragmentManager
 		FragmentTransaction transaction = mFragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, mFeedFragment,
 				TAG_FEED_FRAGMENT);
@@ -168,10 +168,10 @@ public class MainActivity extends Activity implements SelectionListener,
 
 	}
 
-	// Restore saved instance state
+	// Восстанавливаем состояние сохраненного объекта
 	private void restoreState(Bundle savedInstanceState) {
 		
-		//Fragments tags were saved in onSavedInstanceState 
+		//Тэги фрагмента сохраняются в onSavedInstanceState
 		mFriendsFragment = (FriendsFragment) mFragmentManager
 				.findFragmentByTag(savedInstanceState
 						.getString(TAG_FRIENDS_FRAGMENT));
@@ -191,7 +191,7 @@ public class MainActivity extends Activity implements SelectionListener,
 		}
 	}
 
-	// Convert raw data (in JSON format) into text for display
+	// КОнвертируем сырые данные (JSON формат) в текст для отображения
 	private void parseJSON(String[] feeds) {
 		JSONArray[] JSONFeeds = new JSONArray[feeds.length];
 		for (int i = 0; i < JSONFeeds.length; i++) {
@@ -205,7 +205,7 @@ public class MainActivity extends Activity implements SelectionListener,
 			String tweet = "";
 			JSONArray tmp = JSONFeeds[i];
 
-			// string buffer for feeds
+			// строковый буффер для ленты
 			StringBuffer tweetRec = new StringBuffer("");
 			for (int j = 0; j < tmp.length(); j++) {
 				try {
