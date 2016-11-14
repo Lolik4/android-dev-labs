@@ -37,53 +37,53 @@ public class DownloaderTaskFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Preserve across reconfigurations
+		// Предохраняет во время реконфигурации
 		setRetainInstance(true);
 
-		// TODO: Create new DownloaderTask that "downloads" data
+		// TODO: Создаем новый DownloaderTask который "скачивает" данные
 
 		
-		// TODO: Retrieve arguments from DownloaderTaskFragment
-		// Prepare them for use with DownloaderTask.
+		// TODO: Получаем аргументы для DownloaderTaskFragment
+		// Подготавливаем их для использования в DownloaderTaskFragment.
 
 
 		
 		
 		
-		// TODO: Start the DownloaderTask
+		// TODO: Стартуем DownloaderTask
 
 		
 	}
 
-	// Assign current hosting Activity to mCallback
-	// Store application context for use by downloadTweets()
+	// Ассоциируем текущий родительский Activity с mCallback
+	// Сохраняем контекст приложения для использования в методе downloadTweets()
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
 		mContext = activity.getApplicationContext();
 
-		// Make sure that the hosting activity has implemented
-		// the correct callback interface.
+		// Убеждаеся, что родительский активити  реализует
+		// верный callback интерфейс.
 		try {
 			mCallback = (DownloadFinishedListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
-					+ " must implement DownloadFinishedListener");
+					+ " должен реализовывать DownloadFinishedListener");
 		}
 	}
 
-	// Null out mCallback
+	// Обнуляем mCallback
 	@Override
 	public void onDetach() {
 		super.onDetach();
 		mCallback = null;
 	}
 
-	// TODO: Implement an AsyncTask subclass called DownLoaderTask.
-	// This class must use the downloadTweets method (currently commented
-	// out). Ultimately, it must also pass newly available data back to
-	// the hosting Activity using the DownloadFinishedListener interface.
+	// TODO: Реализуем подкласс AsyncTask с именем DownLoaderTask.
+	// Этот класс должен использовать метод downloadTweets (закомментирован).
+	// В итоге, он должен еще передавать новые доступные данные обратно в
+	// родительский Activity используя интерфейс DownloadFinishedListener.
 
 	// public class DownloaderTask extends ...
 
@@ -94,8 +94,8 @@ public class DownloaderTaskFragment extends Fragment {
 	
 	
 	
-		// TODO: Uncomment this helper method
-		// Simulates downloading Twitter data from the network
+		// TODO: Раскомментировать этот вспомогательный method
+		// Симулирует скачивание данных Twitter по сети
 
 /* 
 	 
@@ -110,7 +110,7 @@ public class DownloaderTaskFragment extends Fragment {
 					InputStream inputStream;
 					BufferedReader in;
 					try {
-						// Pretend downloading takes a long time
+						// Прикидываемся, что скачиванием занимает много времени
 						Thread.sleep(simulatedDelay);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -141,17 +141,17 @@ public class DownloaderTaskFragment extends Fragment {
 				e.printStackTrace();
 			}
 
-			// Notify user that downloading has finished
+			// Уведомляем пользователя, что скачивание завершено
 			notify(downLoadCompleted);
 
 			return feeds;
 
 		}
 */
-		// Uncomment this helper method.
-		// If necessary, notifies the user that the tweet downloads are
-		// complete. Sends an ordered broadcast back to the BroadcastReceiver in
-		// MainActivity to determine whether the notification is necessary.
+		// Раскомментируйте этот вспомогательный метод.
+		// Если необходимо, уведомляет пользователя, что скачивание твитов завершено.
+		// Отправляет широковещательный запрос обратно в BroadcastReceiver в
+		// MainActivity чтобы определить, нужно ли создавать уведомление.
 
 	/*
 		private void notify(final boolean success) {
@@ -160,14 +160,14 @@ public class DownloaderTaskFragment extends Fragment {
 					MainActivity.class);
 			restartMainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-			// Sends an ordered broadcast to determine whether MainActivity is
-			// active and in the foreground. Creates a new BroadcastReceiver
-			// to receive a result indicating the state of MainActivity
+			// Отправляет широковещательный запрос, чтобы определить, активен ли MainActivity,
+			// виден ли он на экране. Создает новый BroadcastReceiver
+			// чтобы получить результат обозначающий состояние MainActivity
 
-			// The Action for this broadcast Intent is
+			// Действие для данного широковещательного запроса
 			// MainActivity.DATA_REFRESHED_ACTION
-			// The result, MainActivity.IS_ALIVE, indicates that MainActivity is
-			// active and in the foreground.
+			// Результат MainActivity.IS_ALIVE обозначает, что MainActivity
+			// активен и виден на экране устройства.
 
 			mContext.sendOrderedBroadcast(new Intent(
 					MainActivity.DATA_REFRESHED_ACTION), null,
@@ -183,15 +183,14 @@ public class DownloaderTaskFragment extends Fragment {
 						@Override
 						public void onReceive(Context context, Intent intent) {
 
-							// TODO: Check whether or not the MainActivity
-							// received the broadcast
+							// TODO: Проверяет, получил ли  MainActivity
+							// широковещательный запрос
 
 							if (true || false) {
 
-								// TODO: If not, create a PendingIntent using
-								// the
-								// restartMainActivityIntent and set its flags
-								// to FLAG_UPDATE_CURRENT
+								// TODO: Если нет, создаем PendingIntent используя
+								// restartMainActivityIntent и устанавливаем его флаги в
+								// FLAG_UPDATE_CURRENT
 
 
 
@@ -200,31 +199,31 @@ public class DownloaderTaskFragment extends Fragment {
 
 
 
-								// Uses R.layout.custom_notification for the
-								// layout of the notification View. The xml
-								// file is in res/layout/custom_notification.xml
+								// Используется R.layout.custom_notification для
+								// макета уведомления. Xml файл находится в
+								// res/layout/custom_notification.xml
 
 								RemoteViews mContentView = new RemoteViews(
 										mContext.getPackageName(),
 										R.layout.custom_notification);
 
-								// TODO: Set the notification View's text to
-								// reflect whether the download completed
-								// successfully
+								// TODO: Устанавливаем текст для компоненты уведомления
+								// для отображения того, что скачивание успешно завершено
 
 
 
 
-								// TODO: Use the Notification.Builder class to
-								// create the Notification. You will have to set
-								// several pieces of information. You can use
+
+								// TODO: Исползьуем класс Notification.Builder
+								// чтобы создать Уведомление. Вам будет необходимо задать
+								// различные значения для отображения информации. Вы можете использовать
 								// android.R.drawable.stat_sys_warning
-								// for the small icon. You should also
+								// для маленькой пиктограммы. Вы также можете воспользоваться
 								// setAutoCancel(true).
 
 								Notification.Builder notificationBuilder = null;
 
-								// TODO: Send the notification
+								// TODO: Отправляем уведомление
 
 
 
@@ -245,8 +244,8 @@ public class DownloaderTaskFragment extends Fragment {
 
 */
 	
-		// Uncomment this helper method
-		// Saves the tweets to a file
+		// Раскомментируйте этот вспомогательный метод
+		// Сохраняет твиты в файл
 	
 /*	
 		private void saveTweetsToFile(String[] result) {

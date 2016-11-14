@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements SelectionListener,
 	public static final String DATA_REFRESHED_ACTION = "course.labs.notificationslabnew.DATA_REFRESHED";
 	private static final String TAG = "Lab-Notifications";
 
-	// Raw feed file IDs used to reference stored tweet data
+	// ID идентификаторы файла, содержащего сохраненные данные ленты твитов
 	public static final ArrayList<Integer> sRawTextFeedIds = new ArrayList<Integer>(
 			Arrays.asList(R.raw.tswift, R.raw.rblack, R.raw.lgaga));
 
@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements SelectionListener,
 
 		mFragmentManager = getFragmentManager();
 
-		// Reset instance state on reconfiguration
+		// Восстанавливаем состояние при реконфигурации
 		if (null != savedInstanceState) {
 			restoreState(savedInstanceState);
 		} else {
@@ -73,32 +73,31 @@ public class MainActivity extends Activity implements SelectionListener,
 		}
 	}
 
-	// One time setup of UI and retained (headless) Fragment
+	// Один раз устанавливаем UI для Фрагмента
 	private void setupFragments() {
 		installFriendsFragment();
 
-		// The feed is fresh if it was downloaded less than 2 minutes ago
+		// Лента свежая, если она была скачана менее 2 минут назад
 		mIsFresh = (System.currentTimeMillis() - getFileStreamPath(
 				TWEET_FILENAME).lastModified()) < TWO_MIN;
 		if (!mIsFresh) {
 			installDownloaderTaskFragment();
 
-			// TODO: Show a Toast message displaying
-			// R.string.download_in_progress string
+			// TODO: Показываем сообщение с помощью Toast для отображения строки
+			// R.string.download_in_progress
 
 
 			
 			
-			// Set up a BroadcastReceiver to receive an Intent when download
-			// finishes.
+			// Устанавливаем BroadcastReceiver для получения интента, когда закончится скачивание
 			mRefreshReceiver = new BroadcastReceiver() {
 				@Override
 				public void onReceive(Context context, Intent intent) {
 
 					// TODO:
-					// Check to make sure this is an ordered broadcast
-					// Let sender know that the Intent was received
-					// by setting result code to MainActivity.IS_ALIVE
+					// Проверить, что это широковещательный запрос
+					// Дадим знать отправителю, что интент был получен, установив код результата
+					// в MainActivity.IS_ALIVE
 
 
 					
@@ -108,51 +107,51 @@ public class MainActivity extends Activity implements SelectionListener,
 			};
 
 		} else {
-			// Process Twitter data taken from stored file
+			// Обработать данные Twitter, полученные из сохраненного файла
 			parseJSON(loadTweetsFromFile());
 
-			// Enable user interaction
+			// Включаем пользовательское взаимодействие
 			mIsInteractionEnabled = true;
 		}
 	}
 
-	// Add Friends Fragment to Activity
+	// Добавляем FriendsFragment в Activity
 	private void installFriendsFragment() {
 
-		// Make new Fragment
+		// Создаем новый Fragment
 		mFriendsFragment = new FriendsFragment();
 
-		// Give Fragment to the FragmentManager
+		// Передаем Fragment в FragmentManager
 		FragmentTransaction transaction = mFragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, mFriendsFragment,
 				TAG_FRIENDS_FRAGMENT);
 		transaction.commit();
 	}
 
-	// Add DownloaderTaskFragment to Activity
+	// Добавляем DownloaderTaskFragment в Activity
 	private void installDownloaderTaskFragment() {
 
-		// Make new Fragment
+		// Создаем новый Fragment
 		mDownloaderFragment = new DownloaderTaskFragment();
 
-		// Set DownloaderTaskFragment arguments
+		// Устанавливаем аргументы DownloaderTaskFragment
 		Bundle args = new Bundle();
 		args.putIntegerArrayList(TAG_FRIEND_RES_IDS, sRawTextFeedIds);
 		mDownloaderFragment.setArguments(args);
 
-		// Give Fragment to the FragmentManager
+		// Передаем Фрагмент в FragmentManager
 		mFragmentManager.beginTransaction()
 				.add(mDownloaderFragment, TAG_DOWNLOADER_FRAGMENT).commit();
 	}
 
-	// Register the BroadcastReceiver
+	// Регистрируем BroadcastReceiver
 	@Override
 	protected void onResume() {
 		super.onResume();
 
 		// TODO:
-		// Register the BroadcastReceiver to receive a
-		// DATA_REFRESHED_ACTION broadcast
+		// Регистрируем BroadcastReceiver чтобы получить
+		// DATA_REFRESHED_ACTION широковещательный запрос
 
 		
 		
@@ -163,9 +162,9 @@ public class MainActivity extends Activity implements SelectionListener,
 	protected void onPause() {
 
 		// TODO:
-		// Unregister the BroadcastReceiver if it has been registered
-		// Note: check that mRefreshReceiver is not null before attempting to
-		// unregister in order to work around an Instrumentation issue
+		// Отменить регистрацию BroadcastReceiver , если он был зарегистрирован.
+		// Замечание: проверяем, что mRefreshReceiver не null перед попыткой
+		// отменить регистрацию
 
 
 		
@@ -176,53 +175,52 @@ public class MainActivity extends Activity implements SelectionListener,
 	}
 
 	/*
-	 * DownloadFinishedListener method
+	 * DownloadFinishedListener метод
 	 */
 
-	// Called back by DownloaderTask after data has been loaded
+	// Вызывается фрагментом DownloaderTask после окончания загрузки данных
 	public void notifyDataRefreshed(String[] feeds) {
 
-		// Process downloaded data
+		// Обрабатываем скаченные данные
 		parseJSON(feeds);
 
-		// Enable user interaction
+		// Включаем пользовательское взаимодействие
 		mIsInteractionEnabled = true;
 		allowUserClicks();
 
 	};
 
-	// Enable user interaction with FriendFragment
+	// Включаем пользовательское взаимодействие с FriendFragment
 	private void allowUserClicks() {
 		mFriendsFragment.setAllowUserClicks(true);
 	}
 
 	/*
-	 * SelectionListener methods
+	 * Методы интерфейса SelectionListener
 	 */
 
-	// Report whether users interaction is enabled
+	// Уведомляет, включено ли пользовательское взаимодействие
 	public boolean canAllowUserClicks() {
 		return mIsInteractionEnabled;
 	}
 
-	// Installs the FeedFragment when a Friend name is
-	// selected in the FriendsFragment
+	// Инсталлирует FeedFragment, когда имя Друга выбирается в FriendsFragment
 	@Override
 	public void onItemSelected(int position) {
 		installFeedFragment(mFormattedFeeds[position]);
 	}
 
-	// Add FeedFragment to Activity
+	// Добавляет FeedFragment в Activity
 	private void installFeedFragment(String tweetData) {
-		// Make new Fragment
+		// Создаем новый Фрагмент
 		mFeedFragment = new FeedFragment();
 
-		// Set Fragment arguments
+		// Устанавливаем аргументы Фрагмента
 		Bundle args = new Bundle();
 		args.putString(TAG_TWEET_DATA, tweetData);
 		mFeedFragment.setArguments(args);
 
-		// Give Fragment to the FragmentManager
+		// Передаем Фрагмент в FragmentManager
 		FragmentTransaction transaction = mFragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, mFeedFragment,
 				TAG_FEED_FRAGMENT);
@@ -252,10 +250,10 @@ public class MainActivity extends Activity implements SelectionListener,
 
 	}
 
-	// Restore saved instance state
+	// Восстанавливаем состояние сохраненного объекта
 	private void restoreState(Bundle savedInstanceState) {
 
-		// Fragments tags were saved in onSavedInstanceState
+		// ТЭги фрагментов, которые были сохранены в  onSavedInstanceState
 		mFriendsFragment = (FriendsFragment) mFragmentManager
 				.findFragmentByTag(savedInstanceState
 						.getString(TAG_FRIENDS_FRAGMENT));
@@ -276,7 +274,7 @@ public class MainActivity extends Activity implements SelectionListener,
 		}
 	}
 
-	// Convert raw data (in JSON format) into text for display
+	// Преобразовываем сырые данные (в формате JSON) в текст для отображения
 	private void parseJSON(String[] feeds) {
 		JSONArray[] JSONFeeds = new JSONArray[feeds.length];
 		for (int i = 0; i < JSONFeeds.length; i++) {
@@ -290,7 +288,7 @@ public class MainActivity extends Activity implements SelectionListener,
 			String tweet = "";
 			JSONArray tmp = JSONFeeds[i];
 
-			// string buffer for feeds
+			// строковый буфер для ленты
 			StringBuffer tweetRec = new StringBuffer("");
 			for (int j = 0; j < tmp.length(); j++) {
 				try {
@@ -307,8 +305,8 @@ public class MainActivity extends Activity implements SelectionListener,
 		}
 	}
 
-	// Retrieve feeds text from a file
-	// Store them in mRawTextFeed[]
+	// Полчаем текст ленты для файла
+	// Сохраняем в mRawTextFeed[]
 
 	private String[] loadTweetsFromFile() {
 		BufferedReader reader = null;
