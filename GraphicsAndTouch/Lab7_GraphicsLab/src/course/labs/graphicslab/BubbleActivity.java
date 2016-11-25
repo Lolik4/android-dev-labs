@@ -25,7 +25,7 @@ import android.widget.RelativeLayout;
 
 public class BubbleActivity extends Activity {
 
-	// These variables are for testing purposes, do not modify
+	// Эти переменные нужны для тестирования, не изменять
 	private final static int RANDOM = 0;
 	private final static int SINGLE = 1;
 	private final static int STILL = 2;
@@ -33,27 +33,27 @@ public class BubbleActivity extends Activity {
 
 	private static final String TAG = "Lab-Graphics";
 
-	// The Main view
+	// Главный view
 	private RelativeLayout mFrame;
 
-	// Bubble image's bitmap
+	// Bitmap изображения пузыря
 	private Bitmap mBitmap;
 
-	// Display dimensions
+	// размеры экрана
 	private int mDisplayWidth, mDisplayHeight;
 
-	// Sound variables
+	// Звуковые переменные
 
 	// AudioManager
 	private AudioManager mAudioManager;
 	// SoundPool
 	private SoundPool mSoundPool;
-	// ID for the bubble popping sound
+	// ID звука лопания пузыря 
 	private int mSoundID;
-	// Audio volume
+	// Громкость аудио
 	private float mStreamVolume;
 
-	// Gesture Detector
+	// Детектор жестов
 	private GestureDetector mGestureDetector;
 
 	@Override
@@ -62,10 +62,10 @@ public class BubbleActivity extends Activity {
 
 		setContentView(R.layout.main);
 
-		// Set up user interface
+		// Установка пользовательского интерфейса
 		mFrame = (RelativeLayout) findViewById(R.id.frame);
 
-		// Load basic bubble Bitmap
+		// Загружаем базовое изображение для пузыря
 		mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.b64);
 
 	}
@@ -74,8 +74,8 @@ public class BubbleActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		// Manage bubble popping sound
-		// Use AudioManager.STREAM_MUSIC as stream type
+		// Управляем звуком лопания пузыря
+		// Используем AudioManager.STREAM_MUSIC в качестве типа потока
 
 		mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
@@ -83,15 +83,15 @@ public class BubbleActivity extends Activity {
 				.getStreamVolume(AudioManager.STREAM_MUSIC)
 				/ mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
-		// TODO - make a new SoundPool, allowing up to 10 streams 
+		// TODO - создаем новый SoundPool, предоставляющий до 10 потоков 
 		mSoundPool = null;
 
 
-		// TODO - set a SoundPool OnLoadCompletedListener that calls setupGestureDetector()
+		// TODO - устанавливаем для SoundPool листенер OnLoadCompletedListener который вызывает setupGestureDetector()
 
 
 		
-		// TODO - load the sound from res/raw/bubble_pop.wav
+		// TODO - загружаем звук из res/raw/bubble_pop.wav
 		mSoundID = 0;
 
 	}
@@ -101,30 +101,29 @@ public class BubbleActivity extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 		if (hasFocus) {
 
-			// Get the size of the display so this View knows where borders are
+			// Получаем размер экрана для того чтобы View знал, где границы отображения
 			mDisplayWidth = mFrame.getWidth();
 			mDisplayHeight = mFrame.getHeight();
 
 		}
 	}
 
-	// Set up GestureDetector
+	// Устанавливаем GestureDetector
 	private void setupGestureDetector() {
 
 		mGestureDetector = new GestureDetector(this,
 
 		new GestureDetector.SimpleOnGestureListener() {
 
-			// If a fling gesture starts on a BubbleView then change the
-			// BubbleView's velocity
+			// Если на BubleView происходит жест швыряния, тогда изменяем его направление и скорость (velocity)
 
 			@Override
 			public boolean onFling(MotionEvent event1, MotionEvent event2,
 					float velocityX, float velocityY) {
 
-				// TODO - Implement onFling actions.
-				// You can get all Views in mFrame using the
-				// ViewGroup.getChildCount() method
+				// TODO - Реализуйте onFling.
+				// Вы можете получить все Views в mFrame используя
+				// метод ViewGroup.getChildCount()
 
 
 				
@@ -134,16 +133,16 @@ public class BubbleActivity extends Activity {
 
 			}
 
-			// If a single tap intersects a BubbleView, then pop the BubbleView
-			// Otherwise, create a new BubbleView at the tap's location and add
-			// it to mFrame. You can get all views from mFrame with ViewGroup.getChildAt()
+			// Если простое нажатие попадает по BubbleView, тогда лопаем BubbleView
+			// Иначе, создаем новый BubbleView в центре нажатия и добавляем его в
+			// mFrame. Вы можете получить все компоненты в mFrame с помощью метода ViewGroup.getChildAt()
 
 			@Override
 			public boolean onSingleTapConfirmed(MotionEvent event) {
 
-				// TODO - Implement onSingleTapConfirmed actions.
-				// You can get all Views in mFrame using the
-				// ViewGroup.getChildCount() method
+				// TODO - Реализуйте onSingleTapConfirmed.
+				// Вы можете получить все объекты View в mFrame используя
+				// метод ViewGroup.getChildCount()
 
 
 
@@ -165,7 +164,7 @@ public class BubbleActivity extends Activity {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		// TODO - Delegate the touch to the gestureDetector
+		// TODO - Делегируем нажатие детектору жестов gestureDetector
 
 		
 		
@@ -180,7 +179,7 @@ public class BubbleActivity extends Activity {
 	@Override
 	protected void onPause() {
 		
-		// TODO - Release all SoundPool resources
+		// TODO - Освобождаем все ресурсы пула SoundPool
 
 
 
@@ -189,9 +188,9 @@ public class BubbleActivity extends Activity {
 		super.onPause();
 	}
 
-	// BubbleView is a View that displays a bubble.
-	// This class handles animating, drawing, and popping amongst other actions.
-	// A new BubbleView is created for each bubble on the display
+	// BubbleView это View который отображает пузырь.
+	// Этот класс управляет анимацией, отрисовкой и лопанием.
+	// Новый BubbleView создается отдельно для каждого пузыря на экране
 
 	public class BubbleView extends View {
 
@@ -202,32 +201,32 @@ public class BubbleActivity extends Activity {
 		private int mScaledBitmapWidth;
 		private Bitmap mScaledBitmap;
 
-		// location, speed and direction of the bubble
+		// местоположение, скорость и направление пузыря
 		private float mXPos, mYPos, mDx, mDy, mRadius, mRadiusSquared;
 		private long mRotate, mDRotate;
 
 		BubbleView(Context context, float x, float y) {
 			super(context);
 
-			// Create a new random number generator to
-			// randomize size, rotation, speed and direction
+			// Создае новое генератор случайных чисел для рандомизации
+			// размера, вращения, скорости и направления
 			Random r = new Random();
 
-			// Creates the bubble bitmap for this BubbleView
+			// Создает битмэп изображения пузыря для этого BubbleView
 			createScaledBitmap(r);
 
-			// Radius of the Bitmap
+			// Радиус Bitmap
 			mRadius = mScaledBitmapWidth / 2;
 			mRadiusSquared = mRadius * mRadius;
 
-			// Adjust position to center the bubble under user's finger
+			// Центрируем положение пузыря относительно точки касания пальца пользователя
 			mXPos = x - mRadius;
 			mYPos = y - mRadius;
 
-			// Set the BubbleView's speed and direction
+			// Устанавливаем скорость и направление BubbleView
 			setSpeedAndDirection(r);
 			
-			// Set the BubbleView's rotation
+			// Устанавливаем вращение BubbleView
 			setRotation(r);
 
 			mPainter.setAntiAlias(true);
@@ -238,7 +237,7 @@ public class BubbleActivity extends Activity {
 
 			if (speedMode == RANDOM) {
 				
-				// TODO - set rotation in range [1..3]
+				// TODO - установить вращение в диапазоне [1..3]
 				mDRotate = 0;
 
 
@@ -250,7 +249,7 @@ public class BubbleActivity extends Activity {
 
 		private void setSpeedAndDirection(Random r) {
 
-			// Used by test cases
+			// Используется тестами
 			switch (speedMode) {
 
 			case SINGLE:
@@ -261,16 +260,16 @@ public class BubbleActivity extends Activity {
 
 			case STILL:
 
-				// No speed
+				// Нулевая скорость
 				mDx = 0;
 				mDy = 0;
 				break;
 
 			default:
 
-				// TODO - Set movement direction and speed
-				// Limit movement speed in the x and y
-				// direction to [-3..3] pixels per movement.
+				// TODO - Устанавливаем направление движения и скорость
+				// Ограничиваем скорость движения по x и y
+				// в диапазоне [-3..3] пикселя на движение.
 
 
 			
@@ -288,34 +287,33 @@ public class BubbleActivity extends Activity {
 				mScaledBitmapWidth = BITMAP_SIZE * 3;
 			
 			} else {
-				//TODO - set scaled bitmap size in range [1..3] * BITMAP_SIZE
+				//TODO - устанавливаем масштабирование размера изображения в диапазоне [1..3] * BITMAP_SIZE
 				mScaledBitmapWidth = 0;
 			
 			}
 
-			// TODO - create the scaled bitmap using size set above
+			// TODO - Создаем масштабированное изображение, используя размеры, установленные выше.
 			mScaledBitmap = null;
 		}
 
-		// Start moving the BubbleView & updating the display
+		// Начинаем перемещать BubbleView & обновлять экран
 		private void start() {
 
-			// Creates a WorkerThread
+			// Создаем WorkerThread
 			ScheduledExecutorService executor = Executors
 					.newScheduledThreadPool(1);
 
-			// Execute the run() in Worker Thread every REFRESH_RATE
-			// milliseconds
-			// Save reference to this job in mMoverFuture
+			// Запускаем run() в Worker Thread каждые REFRESH_RATE милисекунд
+			// Сохраняем ссылку на данный процесс в mMoverFuture
 			mMoverFuture = executor.scheduleWithFixedDelay(new Runnable() {
 				@Override
 				public void run() {
 
-					// TODO - implement movement logic.
-					// Each time this method is run the BubbleView should
-					// move one step. If the BubbleView exits the display, 
-					// stop the BubbleView's Worker Thread. 
-					// Otherwise, request that the BubbleView be redrawn. 
+					// TODO - реализуйте логику движения.
+					// Каждый раз, когда данный метод запускается, BubbleView должен
+					// сдвинуться на один шаг. Если BubbleView покидает экран, 
+					// останавливаем Рабочий Поток для BubbleView.
+					// В противном случае запрашиваем перерисовку BubbleView. 
 					
 
 					
@@ -327,10 +325,10 @@ public class BubbleActivity extends Activity {
 			}, 0, REFRESH_RATE, TimeUnit.MILLISECONDS);
 		}
 
-		// Returns true if the BubbleView intersects position (x,y)
+		// Возвращает истину, если BubbleView пересекает точку (x,y)
 		private synchronized boolean intersects(float x, float y) {
 
-			// TODO - Return true if the BubbleView intersects position (x,y)
+			// TODO - Вернуть true если BubbleView пересекает точку (x,y)
 
 
 
@@ -341,9 +339,9 @@ public class BubbleActivity extends Activity {
 		    return false;
 		}
 
-		// Cancel the Bubble's movement
-		// Remove Bubble from mFrame
-		// Play pop sound if the BubbleView was popped
+		// Отменяем движение Пузыря
+		// Удаляем Пузырь с mFrame
+		// Играем звук лопания, если BubbleView лопнули
 
 		private void stop(final boolean wasPopped) {
 
@@ -351,16 +349,16 @@ public class BubbleActivity extends Activity {
 				mMoverFuture.cancel(true);
 			}
 
-			// This work will be performed on the UI Thread
+			// Данный код будет выполнен в UI потоке
 			mFrame.post(new Runnable() {
 				@Override
 				public void run() {
 
-					// TODO - Remove the BubbleView from mFrame
+					// TODO - Удаляем BubbleView из mFrame
 	
 					
-					// TODO - If the bubble was popped by user,
-					// play the popping sound
+					// TODO - Если пузырь лопнут пользователем,
+					// играем звук лопания
 					if (wasPopped) {
 					
 						
@@ -371,10 +369,10 @@ public class BubbleActivity extends Activity {
 			});
 		}
 
-		// Change the Bubble's speed and direction
+		// Изменяем скорость и направление Пузыря.
 		private synchronized void deflect(float velocityX, float velocityY) {
 
-			//TODO - set mDx and mDy to be the new velocities divided by the REFRESH_RATE
+			//TODO - установить mDx и mDy в качестве новых значений velocity, разделив их на REFRESH_RATE
 			
 
 
@@ -383,58 +381,56 @@ public class BubbleActivity extends Activity {
 
 		}
 
-		// Draw the Bubble at its current location
+		// Рисуем Пузырь в его текущем положении
 		@Override
 		protected synchronized void onDraw(Canvas canvas) {
 
-			// TODO - save the canvas
+			// TODO - сохраняем canvas
 
 
 			
-			// TODO - increase the rotation of the original image by mDRotate
-
-
-
-			
-			// TODO Rotate the canvas by current rotation
-			// Hint - Rotate around the bubble's center, not its position
+			// TODO - Увеличиваем вращение исходного изображения на mDRotate
 
 
 
 			
-			// TODO - draw the bitmap at its new location
+			// TODO Вращаем canvas на текущий сдвиг
+			// Подсказка - Вращаем относительно ценра пузыря, а не его положения.
+
+
+
+			
+			// TODO - рисуем изображение в новом положении
 			
 
 			
-			// TODO - restore the canvas
+			// TODO - восстанавливаем canvas
 
 
 			
 		}
 
-		// Returns true if the BubbleView is still on the screen after the move
+		// Возвращает true если BubbleView все еще на экране после хода
 		// operation
 		private synchronized boolean moveWhileOnScreen() {
 
-			// TODO - Move the BubbleView
+			// TODO - Перемещаем BubbleView
 
 
 			return false;
 		}
 
-		// Return true if the BubbleView is off the screen after the move
-		// operation
+		// Возвращаем true, если BubbleView ушел с экрана после завершения хода
 		private boolean isOutOfView() {
 
-			// TODO - Return true if the BubbleView is off the screen after
-			// the move operation
+			// TODO - Возвращаем true, если BubbleView вне экрана после завершения хода
 
 
 			return false;
 		}
 	}
 
-	// Do not modify below here
+	// Не изменяйте следующий код
 
 	@Override
 	public void onBackPressed() {
