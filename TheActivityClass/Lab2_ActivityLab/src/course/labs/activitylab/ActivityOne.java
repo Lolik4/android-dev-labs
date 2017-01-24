@@ -11,37 +11,37 @@ import android.widget.TextView;
 
 public class ActivityOne extends Activity {
 
-	// Use these as keys when you're saving state between reconfigurations
+	// Используйте эти ключи когда вы сохраняете состояние между реконфигурациями
 	private static final String RESTART_KEY = "restart";
 	private static final String RESUME_KEY = "resume";
 	private static final String START_KEY = "start";
 	private static final String CREATE_KEY = "create";
 
-	// String for LogCat documentation
+	// Строка для LogCat документирования
 	private final static String TAG = "Lab-ActivityOne";
 
-	// Lifecycle counters
+	// Счетчики Жизненного Цикла
 
 	// TODO:
-	// Create variables named
-	// mCreate, mRestart, mStart and mResume
-	// to count calls to onCreate(), onRestart(), onStart() and
-	// onResume(). These variables should not be defined as static.
+	// Создайте переменные с именами
+	// mCreate, mRestart, mStart и mResume
+	// чтобы подсчитывать вызовы  onCreate(), onRestart(), onStart() и
+	// onResume(). Эти переменные должны быть не статическими.
 
-	// You will need to increment these variables' values when their
-	// corresponding lifecycle methods get called.
+	// Вам потребуется инкрементировать эти переменные когда
+	// соответствующие методы жизненного цикла вызываются
 
-	// TODO: Create variables for each of the TextViews
-	// named mTvCreate, mTvRestart, mTvStart, mTvResume.
-	// for displaying the current count of each counter variable
+	// TODO: Создайте переменные для каждого из TextViews
+	// с именами mTvCreate, mTvRestart, mTvStart, mTvResume.
+	// для отображения текущего счета каждой переменной счетчика
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_one);
 
-		// TODO: Assign the appropriate TextViews to the TextView variables
-		// Hint: Access the TextView by calling Activity's findViewById()
+		// TODO: Присвойте соответствующие TextView переменным
+		// Подсказка: Доступ к TextView через метод Activity с именем findViewById()
 		// textView1 = (TextView) findViewById(R.id.textView1);
 
 		Button launchActivityTwoButton = (Button) findViewById(R.id.bLaunchActivityTwo);
@@ -50,37 +50,36 @@ public class ActivityOne extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO:
-				// Launch Activity Two
-				// Hint: use Context's startActivity() method
+				// Запустите Activity Two
+				// Подсказка: используйте метод класса Context с именем startActivity()
 
-				// Create an intent stating which Activity you would like to
-				// start
+				// Создайте intent обозначающий, какой  Activity вы хотите запустить
 				Intent intent = null;
 
-				// Launch the Activity using the intent
+				// Запустите Activity используя интент
 
 			}
 		});
 
-		// Has previous state been saved?
+		// Было ли сохранено предыдущее состояние?
 		if (savedInstanceState != null) {
 
 			// TODO:
-			// Restore value of counters from saved state
-			// Only need 4 lines of code, one for every count variable
+			// Восстановите значения счетчиков из сохраненного состояния
+			// Нужно ровно 4 строки кода по одной для каждой переменной-счетчика
 
 		}
 
-		// Emit LogCat message
+		// Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onCreate() method");
 
 		// TODO:
-		// Update the appropriate count variable
-		// Update the user interface via the displayCounts() method
+		// Обновите соответствующую переменную счетчика
+		// Обновите пользовательский интерфейс с помощью метода displayCounts()
 
 	}
 
-	// Lifecycle callback overrides
+	// Перекрываем методы жизненного циклаы
 
 	@Override
 	public void onStart() {
@@ -90,8 +89,8 @@ public class ActivityOne extends Activity {
 		Log.i(TAG, "Entered the onStart() method");
 
 		// TODO:
-		// Update the appropriate count variable
-		// Update the user interface
+		// Обновите соответствующую переменную счетчика
+		// Обновите пользовательский интерфейс
 
 	}
 
@@ -103,8 +102,8 @@ public class ActivityOne extends Activity {
 		Log.i(TAG, "Entered the onResume() method");
 
 		// TODO:
-		// Update the appropriate count variable
-		// Update the user interface
+		// Обновите соответствующую переменную счетчика
+		// Обновите пользовательский интерфейс
 
 	}
 
@@ -112,7 +111,7 @@ public class ActivityOne extends Activity {
 	public void onPause() {
 		super.onPause();
 
-		// Emit LogCat message
+		// Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onPause() method");
 	}
 
@@ -120,7 +119,7 @@ public class ActivityOne extends Activity {
 	public void onStop() {
 		super.onStop();
 
-		// Emit LogCat message
+		// Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onStop() method");
 	}
 
@@ -128,12 +127,12 @@ public class ActivityOne extends Activity {
 	public void onRestart() {
 		super.onRestart();
 
-		// Emit LogCat message
+		// Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onRestart() method");
 
 		// TODO:
-		// Update the appropriate count variable
-		// Update the user interface
+		// Обновите соответствующую переменную счетчика
+		// Обновите пользовательский интерфейс
 
 	}
 
@@ -141,25 +140,24 @@ public class ActivityOne extends Activity {
 	public void onDestroy() {
 		super.onDestroy();
 
-		// Emit LogCat message
+		// Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onDestroy() method");
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		// TODO:
-		// Save state information with a collection of key-value pairs
-		// 4 lines of code, one for every count variable
+		// Сохраните информацию о состоянии в виде коллекции пар ключ-значение
+		// 4 строки кода, одна для каждого счетчика
 
 	}
 
-	// Updates the displayed counters
-	// This method expects that the counters and TextView variables use the
-	// names
-	// specified above
+	// Обновляет отображаемые счетчики
+	// Этот метод ожидает, что значение счетчиков и переменные TextView используют
+	// имена, описанные выше
 	public void displayCounts() {
 
-		// TODO - uncomment these lines
+		// TODO - раскомментируйте эти строки
 	/*
 		mTvCreate.setText("onCreate() calls: " + mCreate);
 		mTvStart.setText("onStart() calls: " + mStart);
