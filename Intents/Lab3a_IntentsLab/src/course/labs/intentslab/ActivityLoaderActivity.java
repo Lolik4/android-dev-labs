@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 public class ActivityLoaderActivity extends Activity {
     
-	static private final int GET_TEXT_REQUEST_CODE = 1;
+	static public final int GET_TEXT_REQUEST_CODE = 1;
 	static private final String URL = "http://www.google.com";
 	static private final String TAG = "Lab-Intents";
     
-	// For use with app chooser
+	// Для использования при выборе приложения
 	static private final String CHOOSER_TEXT = "Load " + URL + " with:";
     
-	// TextView that displays user-entered text from ExplicitlyLoadedActivity runs
+	// TextView  который отображает текст, введенный в ExplicitlyLoadedActivity
 	private TextView mUserTextView;
     
 	@Override
@@ -27,14 +27,14 @@ public class ActivityLoaderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loader_activity);
 		
-		// Get reference to the textView
+		// Получаем ссылку на textView
 		mUserTextView = (TextView) findViewById(R.id.textView1);
         
-		// Declare and setup Explicit Activation button
+		// Объявляем и устанавливаем кнопку Explicit Activation
 		Button explicitActivationButton = (Button) findViewById(R.id.explicit_activation_button);
 		explicitActivationButton.setOnClickListener(new OnClickListener() {
             
-			// Call startExplicitActivation() when pressed
+			// Вызываем startExplicitActivation() при нажатии
 			@Override
 			public void onClick(View v) {
 				
@@ -43,11 +43,11 @@ public class ActivityLoaderActivity extends Activity {
 			}
 		});
         
-		// Declare and setup Implicit Activation button
+		// Объявляем и устанавливаем кнопку Implicit Activation 
 		Button implicitActivationButton = (Button) findViewById(R.id.implicit_activation_button);
 		implicitActivationButton.setOnClickListener(new OnClickListener() {
             
-			// Call startImplicitActivation() when pressed
+			// Вызываем startImplicitActivation() при нажатии
 			@Override
 			public void onClick(View v) {
                 
@@ -63,12 +63,13 @@ public class ActivityLoaderActivity extends Activity {
 	
 	private void startExplicitActivation() {
         
-		Log.i(TAG,"Entered startExplicitActivation()");
+		Log.i(TAG,"Вошли в startExplicitActivation()");
 		
-		// TODO - Create a new intent to launch the ExplicitlyLoadedActivity class
-		Intent explicitIntent = null;
+		// TODO - Создайте новый интент для запуска класса ExplicitlyLoadedActivity
+		Intent explicitIntent = new Intent(this, ExplicitlyLoadedActivity.class);
 		
-		// TODO - Start an Activity using that intent and the request code defined above
+		// TODO - Стартуйте Activity используя этот интент и код запроса, описанный выше
+		startActivityForResult(explicitIntent, GET_TEXT_REQUEST_CODE);
 		
         
         
@@ -78,23 +79,24 @@ public class ActivityLoaderActivity extends Activity {
 	
 	private void startImplicitActivation() {
         
-		Log.i(TAG, "Entered startImplicitActivation()");
+		Log.i(TAG, "Вошли в startImplicitActivation()");
         
-		// TODO - Create a base intent for viewing a URL
-		// (HINT:  second parameter uses Uri.parse())
+		// TODO - Создайте базовый интент для просмотра URL
+		// (ПОДСКАЗКА:  второй параметр с использованиемё Uri.parse())
 		
-        Intent baseIntent = null;
+        Intent baseIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
 		
-		// TODO - Create a chooser intent, for choosing which Activity
-		// will carry out the baseIntent
-		// (HINT: Use the Intent class' createChooser() method)
-		Intent chooserIntent = null;
+		// TODO - Создайте интент для выбора Activity
+		// будет выполнять baseIntent
+		// (ПОДСКАЗКА: Используйте метод createChooser() класса Intent)
+		Intent chooserIntent = new Intent(Intent.createChooser(baseIntent,"Choose activity"));
         
         
 		Log.i(TAG,"Chooser Intent Action:" + chooserIntent.getAction());
         
         
-		// TODO - Start the chooser Activity, using the chooser intent
+		// TODO - Стартуйте выбор Activity, используя chooserIntent
+		startActivity(chooserIntent);
 
         
 	}
@@ -104,9 +106,12 @@ public class ActivityLoaderActivity extends Activity {
         
 		Log.i(TAG, "Entered onActivityResult()");
 		
-		// TODO - Process the result only if this method received both a
-		// RESULT_OK result code and a recognized request code
-		// If so, update the Textview showing the user-entered text.
+		// TODO - Обработать результат только в том случае, если этот метод получит и 
+		// RESULT_OK в качестве кода результата и наш код запроса.
+		// Если это так, то обновим TextView, показав текст, введенный пользователем.
+		if (requestCode==GET_TEXT_REQUEST_CODE && resultCode==RESULT_OK){
+			mUserTextView.setText(data.getStringExtra("data"));
+		}
 
 	
     

@@ -21,14 +21,14 @@ public class ExplicitlyLoadedActivity extends Activity {
 		
 		setContentView(R.layout.explicitly_loaded_activity);
 
-		// Get a reference to the EditText field
+		// Получаем ссылку на поле EditText 
 		mEditText = (EditText) findViewById(R.id.editText);
 
-		// Declare and setup "Enter" button
+		// Объявляем и устанавливаем кнопку "Enter"
 		Button enterButton = (Button) findViewById(R.id.enter_button);
 		enterButton.setOnClickListener(new OnClickListener() {
 
-			// Call enterClicked() when pressed
+			// Вызываем enterClicked() при нажатии
 
 			@Override
 			public void onClick(View v) {
@@ -40,19 +40,23 @@ public class ExplicitlyLoadedActivity extends Activity {
 
 	}
 
-	// Sets result to send back to calling Activity and finishes
+	// Устанавливает результат для отправки назад в вызывающий Activity и завершается
 	
 	private void enterClicked() {
 
-		Log.i(TAG,"Entered enterClicked()");
+		Log.i(TAG,"Вошли в enterClicked()");
 		
-		// TODO - Save user provided input from the EditText field
+		// TODO - Сохраните текст, введенный пользователем в поле EditText
+		String text = mEditText.getText().toString();
 
-		// TODO - Create a new intent and save the input from the EditText field as an extra
+		// TODO - Создайте новый интент и сохраните введенный в EditText текст в качестве extra
+		Intent intent = new Intent();
+		intent = intent.putExtra("data",text);
 		
-		// TODO - Set Activity's result with result code RESULT_OK
+		// TODO - Установите в качестве результата Activity  значение кода RESULT_OK
+		setResult(Activity.RESULT_OK, intent);
 		
-		// TODO - Finish the Activity
-
+		// TODO - Закройте Activity, используя метод finish
+		finish();
 	}
 }
