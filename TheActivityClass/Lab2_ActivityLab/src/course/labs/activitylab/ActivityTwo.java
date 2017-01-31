@@ -98,7 +98,7 @@ public class ActivityTwo extends Activity {
 		// // Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onStart() method");
 
-		TODO:
+		// TODO:
 		// Обновите соответствующую переменную счетчика
 		// Обновите пользовательский интерфейс
 
@@ -114,7 +114,7 @@ public class ActivityTwo extends Activity {
 		// // Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onResume() method");
 
-		TODO:
+		// TODO:
 		// Обновите соответствующую переменную счетчика
 		// Обновите пользовательский интерфейс
 
@@ -145,7 +145,7 @@ public class ActivityTwo extends Activity {
 		// // Производим LogCat сообщение, пишем в журнал
 		Log.i(TAG, "Entered the onRestart() method");
 
-		TODO:
+		// TODO:
 		// Обновите соответствующую переменную счетчика
 		// Обновите пользовательский интерфейс
 
