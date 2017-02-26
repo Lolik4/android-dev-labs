@@ -14,12 +14,15 @@ import course.labs.retrofitlab.R;
 import course.labs.retrofitlab.model.Movie;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
-
+    //Внутрянняя модель - список фильмов для отображения компонентой
     private List<Movie> movies;
+    //код, идентификатор ресурса для визуализации отдельного элемента, его макета
     private int rowLayout;
+    //Ссылка на контекст, который мы сохраняем при создании объекта адаптера
     private Context context;
 
-
+    //Класс ViewHolder необходим для наполнения данными элементы пользовательского интерфейса отдельного элемента списка
+    //Класс MovieViewHolder - частный случай, использует макет list_item_movie.xml для отображения модели Movie
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         LinearLayout moviesLayout;
         TextView movieTitle;
@@ -27,7 +30,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         TextView movieDescription;
         TextView rating;
 
-
+        //Главный метод любого ViewHolder-а. Ему отдается View, узел дерева интерфейса, корневой для макета отдельного элемента
+        //Основная задача данного метода - осуществить привязки к компонентам Android, чтобы в дальнейшем их можно было изменять/наполнять
         public MovieViewHolder(View v) {
             super(v);
             moviesLayout = (LinearLayout) v.findViewById(R.id.movies_layout);
@@ -44,22 +48,46 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         this.context = context;
     }
 
+    //
+
+    /**
+     * Данный метод используется компонентой RecyclerView, когда ей необходимо отрисовать элемент указанного типа
+     * @param parent компонента для наполнения макетом отдельного элемента
+     * @param viewType тип элемента (может быть различным, используется в случае разных типов элементов списка)
+     * @return ViewHolder для отрисовки отдельного элемента
+     */
     @Override
     public MoviesAdapter.MovieViewHolder onCreateViewHolder(ViewGroup parent,
                                                             int viewType) {
+        //берем макет из ресурсов по идентификатору rowLayout и заполняем им область для отдельного элемента списка
+        //возвращается View, компонент, корневой для данного поддерева элементов пользовательского интерфейса
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+        //возвращаем MovieViewHolder в нашем случае для привязки к компонентам
         return new MovieViewHolder(view);
     }
 
 
+    /**
+     * Данный метод используется компонентой RecyclerView для непосредственного наполнения пользовательского интерфейса отдельного элемента
+     * По номеру элемента (position) списка находится его ViewHolder и вызывается команда привязки (bind) для подгрузки информации из внутренней модели
+     * @param holder холдер, для управления интерфейсом
+     * @param position номер элемента списка, обычно используется для выбора данных из модели для наполнения
+     */
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
-        holder.movieTitle.setText(movies.get(position).getTitle());
-        holder.data.setText(movies.get(position).getReleaseDate());
-        holder.movieDescription.setText(movies.get(position).getOverview());
-        holder.rating.setText(movies.get(position).getVoteAverage().toString());
+        //Получаем i-ый элемента списка моделей. В данном случае элемент списка фильмов с индексом position
+        Movie movie = movies.get(position);
+        //Наполняем элементы интерфейса данными из модели
+        holder.movieTitle.setText(movie.getTitle());
+        holder.data.setText(movie.getReleaseDate());
+        holder.movieDescription.setText(movie.getOverview());
+        holder.rating.setText(movie.getVoteAverage().toString());
     }
 
+    /**
+     * Количество элементов списка
+     * @return возвращает количество элементов для отрисовки, берется из внтутренней модели данных
+     */
     @Override
     public int getItemCount() {
         return movies.size();

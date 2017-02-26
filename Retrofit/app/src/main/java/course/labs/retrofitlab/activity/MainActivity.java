@@ -14,7 +14,7 @@ import course.labs.retrofitlab.adapter.MoviesAdapter;
 import course.labs.retrofitlab.model.Movie;
 import course.labs.retrofitlab.model.MoviesResponse;
 import course.labs.retrofitlab.rest.ApiClient;
-import course.labs.retrofitlab.rest.ApiInterface;
+import course.labs.retrofitlab.rest.TMDBInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,24 +36,34 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        //получаем компоненту RecyclerView и задаем ей способ отображения, линейный менеджер макета
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.movies_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+        //Генерируем адаптер для взаимодействия по сети с помощью библиотеки Retrofit
+        TMDBInterface apiService =
+                ApiClient.getClient().create(TMDBInterface.class);
 
+        //Осуществляем асинхронный запрос к серверу в соответствии с описанием в классе TMDBInterface
         Call<MoviesResponse> call = apiService.getTopRatedMovies(API_KEY);
+        //Обрабатываем ответ от сервера на запрос
         call.enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+                //код ответа сервера (200 - ОК), в данном случае далее не используется
                 int statusCode = response.code();
+                //получаем список фильмов, произведя парсинг JSON ответа с помощью библиотеки Retrofit
                 List<Movie> movies = response.body().getResults();
+                //создаем адаптер для компонента RecyclerView.
+                //компонента станет отображать список загруженных фильмов
                 recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
             }
 
             @Override
             public void onFailure(Call<MoviesResponse> call, Throwable t) {
-                // Log error here since request failed
+                //onFailure вызывается, когда проблема при отправке запроса. Например, сервер не отвечает или нет сети.
+                //Заносим сведения об ошибке в журнал методом Log.e(TAG, MESSAGE)
+                //Данный метод используется для журнализации ошибок (e = error)
                 Log.e(TAG, t.toString());
             }
         });

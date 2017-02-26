@@ -5,7 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Класс модели фильма.
+ * Множество атрибутов JSON записи преобразуется в множество полей Java-класса.
+ * Свойство @SerializedName испоьзуется для импорта-экспорта соответствующего атрибута JSON. Может отличаться от имени поля Java
+ * По-умолчанию используется имя поля Java-класса
+ */
 public class Movie {
     @SerializedName("poster_path")
     private String posterPath;
