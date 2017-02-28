@@ -1,19 +1,31 @@
 package course.labs.retrofitlab.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import course.labs.retrofitlab.R;
 import course.labs.retrofitlab.model.Movie;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
+
+    private static final String TAG = "Lab-Retrofit";
     //Внутрянняя модель - список фильмов для отображения компонентой
     private List<Movie> movies;
     //код, идентификатор ресурса для визуализации отдельного элемента, его макета
@@ -29,6 +41,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         TextView data;
         TextView movieDescription;
         TextView rating;
+        ImageView poster;
 
         //Главный метод любого ViewHolder-а. Ему отдается View, узел дерева интерфейса, корневой для макета отдельного элемента
         //Основная задача данного метода - осуществить привязки к компонентам Android, чтобы в дальнейшем их можно было изменять/наполнять
@@ -39,6 +52,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             data = (TextView) v.findViewById(R.id.subtitle);
             movieDescription = (TextView) v.findViewById(R.id.description);
             rating = (TextView) v.findViewById(R.id.rating);
+            //TODO аналогично присвоить переменной poster соответствующий ImageView с помощью метода findViewById
+            poster = null;
         }
     }
 
@@ -76,12 +91,32 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
         //Получаем i-ый элемента списка моделей. В данном случае элемент списка фильмов с индексом position
-        Movie movie = movies.get(position);
+        final Movie movie = movies.get(position);
         //Наполняем элементы интерфейса данными из модели
         holder.movieTitle.setText(movie.getTitle());
         holder.data.setText(movie.getReleaseDate());
         holder.movieDescription.setText(movie.getOverview());
         holder.rating.setText(movie.getVoteAverage().toString());
+
+	    //Для обработки нажатий мыши на элемент списка, устанавливаем OnClickListener
+	    //Это один из возможных вариантов
+        holder.moviesLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Сделать переход на другую активность с полной информацией о фильме
+                Toast.makeText(context,"Надо сделать переход на полную информацию о фильме! Выбрано: "+ movie.getTitle(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //Загружаем изображение постера
+        //Полный путь до изображения постера http://image.tmdb.org/t/p/w185/###.png
+        //общий префикс http://image.tmdb.org/t/p/w185/
+        String IMAGE_URL_PREFIX = "http://image.tmdb.org/t/p/w185";
+        //TODO получить относительный путь до изображения постера данного фильма с помощью метода getPosterPath()
+        String moviePoster = "";
+        //Получаем полный путь до постера путем конкатенации строк
+        String posterURL = IMAGE_URL_PREFIX+moviePoster;
+        //TODO Запустить DownloadImageTask передав в конструкторе соответствующую компоненту ImageView, а в качестве параметра запуска URL файлаизображения
     }
 
     /**
@@ -91,5 +126,50 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     @Override
     public int getItemCount() {
         return movies.size();
+    }
+
+    /**
+     * DownloadImageTask - это класс, реализующй AsyncTask для асинхронной загрузки изображений
+     *
+     */
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        /**
+         * Конструктор класса. Создает объект AsyncTask, для загрузки изображения в указанный ImageView
+         * @param bmImage компонента ImageView для загрузки в нее изображения
+         */
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        /**
+         * Метод фоновой загрузки изображения, запускаемый неявно с помощью AsyncTask.execute()
+         * Загружает файл по URL, переданному в качестве параметра и возвращает объект Bitmap изображения
+         * @param urls ссылка URL на файл изображения
+         * @return объект Bitmap скачанного изображения для использования в отрисовке компонентой ImageView в главном потоке
+         */
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        /**
+         * Обновляет картинку в компоненте ImageView
+         * Данный метод класса AsyncTask  работает в главном потоке интерфейса.
+         * Когда уже все загружено, полученный Bitmap передается ImageView для отображения
+         * @param result Bitmap, полученный в фоновом потоке doInBackground для отрисовки компонентой
+         */
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

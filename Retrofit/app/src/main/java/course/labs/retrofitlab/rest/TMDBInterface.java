@@ -26,4 +26,5 @@ public interface TMDBInterface {
     Для получения списка ожидаемых новинок
     http://api.themoviedb.org/3/movie/upcoming?api_key=###
     */
+    //TODO добавить метод для получения списка новинок, ожидаемых в прокате
 }
