@@ -66,10 +66,10 @@ public class ActivityLoaderActivity extends Activity {
 		Log.i(TAG,"Вошли в startExplicitActivation()");
 		
 		// TODO - Создайте новый интент для запуска класса ExplicitlyLoadedActivity
-		Intent explicitIntent = new Intent(this, ExplicitlyLoadedActivity.class);
+
 		
 		// TODO - Стартуйте Activity используя этот интент и код запроса, описанный выше
-		startActivityForResult(explicitIntent, GET_TEXT_REQUEST_CODE);
+
 		
         
         
@@ -84,19 +84,16 @@ public class ActivityLoaderActivity extends Activity {
 		// TODO - Создайте базовый интент для просмотра URL
 		// (ПОДСКАЗКА:  второй параметр с использованиемё Uri.parse())
 		
-        Intent baseIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
-		
+                		
 		// TODO - Создайте интент для выбора Activity
 		// будет выполнять baseIntent
 		// (ПОДСКАЗКА: Используйте метод createChooser() класса Intent)
-		Intent chooserIntent = new Intent(Intent.createChooser(baseIntent,"Choose activity"));
+
         
-        
-		Log.i(TAG,"Chooser Intent Action:" + chooserIntent.getAction());
         
         
 		// TODO - Стартуйте выбор Activity, используя chooserIntent
-		startActivity(chooserIntent);
+
 
         
 	}
@@ -109,9 +106,7 @@ public class ActivityLoaderActivity extends Activity {
 		// TODO - Обработать результат только в том случае, если этот метод получит и 
 		// RESULT_OK в качестве кода результата и наш код запроса.
 		// Если это так, то обновим TextView, показав текст, введенный пользователем.
-		if (requestCode==GET_TEXT_REQUEST_CODE && resultCode==RESULT_OK){
-			mUserTextView.setText(data.getStringExtra("data"));
-		}
+		
 
 	
     
