@@ -47,16 +47,13 @@ public class ExplicitlyLoadedActivity extends Activity {
 		Log.i(TAG,"Вошли в enterClicked()");
 		
 		// TODO - Сохраните текст, введенный пользователем в поле EditText
-		String text = mEditText.getText().toString();
+		
 
 		// TODO - Создайте новый интент и сохраните введенный в EditText текст в качестве extra
-		Intent intent = new Intent();
-		intent = intent.putExtra("data",text);
 		
 		// TODO - Установите в качестве результата Activity  значение кода RESULT_OK
-		setResult(Activity.RESULT_OK, intent);
 		
 		// TODO - Закройте Activity, используя метод finish
-		finish();
+		
 	}
 }
